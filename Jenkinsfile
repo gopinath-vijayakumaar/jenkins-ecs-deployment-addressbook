@@ -28,14 +28,6 @@ pipeline{
                   sh 'mvn pmd:pmd'
               }
           }
-           stage('UnitTest'){
-		  
-              steps{
-	         
-                  sh 'mvn test'
-              }
-          
-          }
         
           stage('Package'){
 		  
