@@ -1,6 +1,9 @@
 pipeline {
   agent {
-    docker { image 'maven:sapmachine' }
+    docker { 
+        image 'maven:sapmachine'
+        args '-u root'
+            }
   }
   stages {
     stage('git pull') {
