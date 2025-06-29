@@ -1,11 +1,17 @@
 pipeline {
   agent {
-    docker { image 'node:16-alpine' }
+    docker { image 'maven:sapmachine' }
   }
   stages {
-    stage('Test') {
+    stage('git pull') {
       steps {
-        sh 'node --version'
+        sh 'git clone https://github.com/gopinath-vijayakumaar/DevOpsCodeDemo.git'
+      }
+    }
+    stage('compile') {
+      steps {
+        sh 'mvn compile'
+        sh 'mvn test'
       }
     }
   }
