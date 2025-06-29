@@ -6,12 +6,12 @@ pipeline {
             }
   }
   stages {
-    stage('git pull') {
+    stage('compile') {
       steps {
-        sh 'git clone https://github.com/gopinath-vijayakumaar/DevOpsCodeDemo.git'
+        sh 'mvn compile'
       }
     }
-    stage('compile') {
+    stage('test') {
       steps {
         sh 'mvn compile'
         sh 'mvn test'
