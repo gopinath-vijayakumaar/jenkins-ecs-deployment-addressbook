@@ -11,11 +11,26 @@ pipeline {
         sh 'mvn compile'
       }
     }
+    stage('codereview') {
+      steps {
+        sh 'mvn pmd:pmd'
+      }
+    }
     stage('test') {
       steps {
-        sh 'mvn compile'
         sh 'mvn test'
       }
+    }
+    stage('package') {
+      steps {
+        sh 'mvn clean package'
+      }
+    }
+    stage('docker build') {
+        steps {
+            sh 'docker build -t addressapp .'
+            sh 'docker images'
+        }
     }
   }
 }
