@@ -1,9 +1,9 @@
 pipeline {
   agent {
-    docker { 
-        image 'maven:sapmachine'
-        args '-u root'
-            }
+    docker {
+      image 'maven:sapmachine'
+      args '-u root'
+    }
   }
   stages {
     stage('compile') {
@@ -26,10 +26,12 @@ pipeline {
         sh 'mvn clean package'
       }
     }
-    stage('build') {
-      steps {
-        sh 'docker build -t demoapp .'
-      }
-    }
+  }
+}
+
+stage('build') {
+  agent any
+  steps {
+    sh 'docker build -t demoapp .'
   }
 }
