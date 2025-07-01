@@ -49,7 +49,7 @@ pipeline {
       agent none
       steps {
         sh 'cd /Users/gopinath/.jenkins/workspace/myapp/'
-        sh 'docker build -t '
+        sh 'docker build -t myapp .'
       }
     }
   }
