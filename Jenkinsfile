@@ -54,12 +54,7 @@ pipeline {
     //   }
     // }
     stage('Terraform init and plan') {
-      agent {
-        docker{
-          image 'hashicorp/terraform:latest'
-          args '-u root'
-        }
-      }
+      agent any
       steps {
           sh '''
             cd ${WORKSPACE}/terraform
@@ -71,19 +66,14 @@ pipeline {
           // '''
         }
       }
-    stage('Terraform apply') {
-      agent {
-        docker {
-        image 'hashicorp/terraform:latest'
-        args '-u root'
-      }
-      }
-      steps {
-          sh '''
-            cd ${WORKSPACE}/terraform
-            terraform apply -auto-approve tfplan
-          '''
-      }
-    }
+    // stage('Terraform apply') {
+    //     agent any
+    //     steps {
+    //         sh '''
+    //             cd ${WORKSPACE}/terraform
+    //             terraform apply -auto-approve tfplan
+    //             '''
+    //     }
+    // }
   }
 }
