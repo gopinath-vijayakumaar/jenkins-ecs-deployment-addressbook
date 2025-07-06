@@ -57,23 +57,21 @@ pipeline {
       agent any
       steps {
           sh '''
-            cd ${WORKSPACE}/terraform
-            pwd
-            ls
-            '''
-          //   terraform init
-          //   terraform plan -out=tfplan
-          // '''
+            cd ${WORKSPACE}/terraform/main
+            terraform init
+            terraform plan -out=tfplan
+          '''
         }
       }
-    // stage('Terraform apply') {
-    //     agent any
-    //     steps {
-    //         sh '''
-    //             cd ${WORKSPACE}/terraform
-    //             terraform apply -auto-approve tfplan
-    //             '''
-    //     }
-    // }
+    stage('Terraform apply') {
+        agent any
+        steps {
+            sh '''
+                cd ${WORKSPACE}/terraform/main
+                input message: "Approve to apply Terraform changes?"
+                terraform apply -auto-approve tfplan
+                '''
+        }
+    }
   }
 }
