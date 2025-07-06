@@ -1,7 +1,7 @@
 resource "aws_ecs_service" "addressbook" {
   name            = "td-addressbook-service-pxk3j7k7c"
   cluster         = "walter-white"
-  task_definition = "td-addressbook-01:1"
+  task_definition = aws_ecs_task_definition.addressbook.arn
   launch_type     = "FARGATE"
   desired_count   = 1
   platform_version = "LATEST"
@@ -23,7 +23,7 @@ resource "aws_ecs_service" "addressbook" {
   }
 
   load_balancer {
-    target_group_arn = "arn:aws:elasticloadbalancing:ap-south-1:002381039225:targetgroup/tg-addressbook-01/67c14b08477bcdb6"
+    target_group_arn = aws_lb_target_group.addressbook.arn
     container_name   = "addressbook"
     container_port   = 8080
   }

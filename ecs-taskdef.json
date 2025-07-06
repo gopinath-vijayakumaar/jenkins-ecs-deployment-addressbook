@@ -1,24 +1,80 @@
 {
-  "name": "addressbook",
-  "image": "gopinath2029/addressbook:latest",
-  "cpu": 0,
-  "essential": true,
-  "portMappings": [
-    {
-      "containerPort": 8080,
-      "hostPort": 8080,
-      "protocol": "tcp",
-      "name": "addressbook-8080-tcp",
-      "appProtocol": "http"
-    }
-  ],
-  "logConfiguration": {
-    "logDriver": "awslogs",
-    "options": {
-      "awslogs-group": "/ecs/td-addressbook",
-      "awslogs-region": "ap-south-1",
-      "awslogs-stream-prefix": "ecs",
-      "awslogs-create-group": "true"
-    }
-  }
+    "taskDefinitionArn": "arn:aws:ecs:ap-south-1:002381039225:task-definition/td-addressbook-01:3",
+    "containerDefinitions": [
+        {
+            "name": "addressbook",
+            "image": "gopinath2029/addressbook:12",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "addressbook-8080-tcp",
+                    "containerPort": 8080,
+                    "hostPort": 8080,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/td-addressbook",
+                    "awslogs-create-group": "true",
+                    "awslogs-region": "ap-south-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "td-addressbook-01",
+    "taskRoleArn": "arn:aws:iam::002381039225:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::002381039225:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 2,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "ARM64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2025-07-06T17:21:07.750Z",
+    "registeredBy": "arn:aws:iam::002381039225:user/terraform-access",
+    "tags": []
 }

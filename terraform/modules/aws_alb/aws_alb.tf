@@ -18,6 +18,6 @@ resource "aws_lb_listener" "lb_listener" {
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = "arn:aws:elasticloadbalancing:ap-south-1:002381039225:targetgroup/tg-addressbook-01/67c14b08477bcdb6"
+    target_group_arn = aws_lb_target_group.addressbook.arn
   }
 }

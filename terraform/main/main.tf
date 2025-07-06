@@ -18,13 +18,14 @@ module "aws_ecs_task_definition" {
   source = "../modules/ecs_task_definitions"
 }
 
+module "aws_lb_target_group" {
+  source = "../modules/aws_lb_target_group"
+}
+
 module "aws_alb" {
   source = "../modules/aws_alb"
 }
 
-module "aws_lb_target_group" {
-  source = "../modules/aws_lb_target_group"
-}
 
 module "aws_ecs_service" {
   source = "../modules/aws_ecs_cluster_service"
