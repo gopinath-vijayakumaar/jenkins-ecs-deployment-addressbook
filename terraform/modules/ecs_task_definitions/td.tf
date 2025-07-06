@@ -2,7 +2,7 @@
 resource "aws_ecs_task_definition" "addressbook" {
   family                   = "td-addressbook-01"
   network_mode             = "awsvpc"
-  requires_compatibilities = "FARGATE"
+  requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"
   memory                   = "3072"
   execution_role_arn       = "arn:aws:iam::002381039225:role/ecsTaskExecutionRole"
