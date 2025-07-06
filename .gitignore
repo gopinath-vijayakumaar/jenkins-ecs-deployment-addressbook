@@ -1,0 +1,66 @@
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+*.log
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Java / Maven
+target/
+*.class
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*.tfvars
+*.tfplan
+*.backup
+*.io
+
+# Docker
+*.pid
+*.sock
+docker-compose.override.yml
+
+# Secrets 
+.env*
+secrets.*
+*.pem
+*.key
+
+# Jenkins
+workspace/
+lastSuccessful/
+*.lastFailedBuild
+*.tmp
+
+# System / Binary
+*.exe
+*.out
+*.zip
+*.tar.gz
+*.war
+*.jar
+*.swp
+
+# MacOS Finder
+*.DS_Store
