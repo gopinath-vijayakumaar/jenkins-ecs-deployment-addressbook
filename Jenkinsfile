@@ -68,7 +68,6 @@ pipeline {
         steps {
             sh '''
                 cd ${WORKSPACE}/terraform/main
-                input message: "Approve to apply Terraform changes?"
                 terraform apply -auto-approve tfplan
                 '''
         }
