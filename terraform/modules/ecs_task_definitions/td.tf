@@ -15,7 +15,7 @@ resource "aws_ecs_task_definition" "addressbook" {
   container_definitions = jsonencode([
     {
       name  = "addressbook"
-      image = "gopinath2029/addressbook:12"
+      image = "gopinath2029/addressbook:latest"
       cpu   = 0
       essential = true
 

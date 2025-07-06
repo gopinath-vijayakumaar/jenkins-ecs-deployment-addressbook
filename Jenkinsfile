@@ -1,41 +1,40 @@
 pipeline {
   agent any
   stages {
-    // stage('Compile') {
-    //   agent {
-    //     docker{
-    //       image 'maven:sapmachine'
-    //       args '-u root'
-    //     }
-    //   }
-    //   steps {
-    //     sh 'mvn compile'
-    //   }
-    // }
-    // stage('Static Code Analysis') {
-    //   agent {
-    //     docker{
-    //       image 'maven:sapmachine'
-    //       args '-u root'
-    //     }
-    //   }
-    //   steps {
-    //     sh 'mvn pmd:pmd'
-    //   }
-    // }
-    // stage('Test and Build') {
-    //   agent {
-    //     docker{
-    //       image 'maven:sapmachine'
-    //       args '-u root'
-    //     }
-    //   }
-    //   steps {
-    //     sh 'mvn test'
-    //     sh 'mvn clean package'
-    //   }
-    // }
-
+    stage('Compile') {
+      agent {
+        docker{
+          image 'maven:sapmachine'
+          args '-u root'
+        }
+      }
+      steps {
+        sh 'mvn compile'
+      }
+    }
+    stage('Static Code Analysis') {
+      agent {
+        docker{
+          image 'maven:sapmachine'
+          args '-u root'
+        }
+      }
+      steps {
+        sh 'mvn pmd:pmd'
+      }
+    }
+    stage('Test and Build') {
+      agent {
+        docker{
+          image 'maven:sapmachine'
+          args '-u root'
+        }
+      }
+      steps {
+        sh 'mvn test'
+        sh 'mvn clean package'
+      }
+    }
     stage('Docker build and push') {
       agent none
       steps{
@@ -48,10 +47,32 @@ pipeline {
           sh '''
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
             cd ${WORKSPACE}
-            '''
-            // docker build -t gopinath2029/addressbook:$BUILD_NUMBER .
-            // docker push gopinath2029/addressbook:$BUILD_NUMBER
-          // '''
+            docker build -t gopinath2029/addressbook:latest .
+            docker push gopinath2029/addressbook:latest
+          '''
+        }
+      }
+    }
+    stage('Terraform init and plan') {
+      agent none
+      steps {
+        {
+          sh '''
+            cd ${WORKSPACE}/terraform
+            terraform init
+            terraform plan -out=tfplan
+          '''
+        }
+      }
+    }
+    stage('Terraform apply') {
+      agent none
+      steps {
+        {
+          sh '''
+            cd ${WORKSPACE}/terraform
+            terraform apply -auto-approve tfplan
+          '''
         }
       }
     }
