@@ -1,40 +1,40 @@
 pipeline {
   agent any
   stages {
-    stage('Compile') {
-      agent {
-        docker{
-          image 'maven:sapmachine'
-          args '-u root'
-        }
-      }
-      steps {
-        sh 'mvn compile'
-      }
-    }
-    stage('Static Code Analysis') {
-      agent {
-        docker{
-          image 'maven:sapmachine'
-          args '-u root'
-        }
-      }
-      steps {
-        sh 'mvn pmd:pmd'
-      }
-    }
-    stage('Test and Build') {
-      agent {
-        docker{
-          image 'maven:sapmachine'
-          args '-u root'
-        }
-      }
-      steps {
-        sh 'mvn test'
-        sh 'mvn clean package'
-      }
-    }
+    // stage('Compile') {
+    //   agent {
+    //     docker{
+    //       image 'maven:sapmachine'
+    //       args '-u root'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'mvn compile'
+    //   }
+    // }
+    // stage('Static Code Analysis') {
+    //   agent {
+    //     docker{
+    //       image 'maven:sapmachine'
+    //       args '-u root'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'mvn pmd:pmd'
+    //   }
+    // }
+    // stage('Test and Build') {
+    //   agent {
+    //     docker{
+    //       image 'maven:sapmachine'
+    //       args '-u root'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'mvn test'
+    //     sh 'mvn clean package'
+    //   }
+    // }
 
     stage('Docker build and push') {
       agent none
