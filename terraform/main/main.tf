@@ -16,9 +16,6 @@ module "aws_ecs_cluster" {
 
 module "aws_ecs_task_definition" {
   source = "../modules/ecs_task_definitions"
-  family = var.family
-  network_mode = var.network_mode
-  requires_compatibilities = var.requires_compatibilities
 }
 
 module "aws_alb" {
