@@ -1,0 +1,24 @@
+{
+  "name": "addressbook",
+  "image": "gopinath2029/addressbook:latest",
+  "cpu": 0,
+  "essential": true,
+  "portMappings": [
+    {
+      "containerPort": 8080,
+      "hostPort": 8080,
+      "protocol": "tcp",
+      "name": "addressbook-8080-tcp",
+      "appProtocol": "http"
+    }
+  ],
+  "logConfiguration": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "/ecs/td-addressbook",
+      "awslogs-region": "ap-south-1",
+      "awslogs-stream-prefix": "ecs",
+      "awslogs-create-group": "true"
+    }
+  }
+}

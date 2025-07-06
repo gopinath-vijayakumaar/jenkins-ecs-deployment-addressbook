@@ -1,70 +1,79 @@
 pipeline {
   agent any
   stages {
-    stage('Compile') {
-      agent {
-        docker{
-          image 'maven:sapmachine'
-          args '-u root'
-        }
-      }
-      steps {
-        sh 'mvn compile'
-      }
-    }
-    stage('Static Code Analysis') {
-      agent {
-        docker{
-          image 'maven:sapmachine'
-          args '-u root'
-        }
-      }
-      steps {
-        sh 'mvn pmd:pmd'
-      }
-    }
-    stage('Test and Build') {
-      agent {
-        docker{
-          image 'maven:sapmachine'
-          args '-u root'
-        }
-      }
-      steps {
-        sh 'mvn test'
-        sh 'mvn clean package'
-      }
-    }
-    stage('Docker build and push') {
-      agent none
-      steps{
-        withCredentials ([usernamePassword(
-          credentialsId: 'c1b55dea-6f5e-4d6e-ac39-eff459b773be',
-          usernameVariable: 'DOCKER_USER',
-          passwordVariable: 'DOCKER_PASS'
-        )])
-        {
-          sh '''
-            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            cd ${WORKSPACE}
-            docker build -t gopinath2029/addressbook:latest .
-            docker push gopinath2029/addressbook:latest
-          '''
-        }
-      }
-    }
+    // stage('Compile') {
+    //   agent {
+    //     docker{
+    //       image 'maven:sapmachine'
+    //       args '-u root'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'mvn compile'
+    //   }
+    // }
+    // stage('Static Code Analysis') {
+    //   agent {
+    //     docker{
+    //       image 'maven:sapmachine'
+    //       args '-u root'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'mvn pmd:pmd'
+    //   }
+    // }
+    // stage('Test and Build') {
+    //   agent {
+    //     docker{
+    //       image 'maven:sapmachine'
+    //       args '-u root'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'mvn test'
+    //     sh 'mvn clean package'
+    //   }
+    // }
+    // stage('Docker build and push') {
+    //   agent none
+    //   steps{
+    //     withCredentials ([usernamePassword(
+    //       credentialsId: 'c1b55dea-6f5e-4d6e-ac39-eff459b773be',
+    //       usernameVariable: 'DOCKER_USER',
+    //       passwordVariable: 'DOCKER_PASS'
+    //     )])
+    //     {
+    //       sh '''
+    //         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+    //         cd ${WORKSPACE}
+    //         docker build -t gopinath2029/addressbook:latest .
+    //         docker push gopinath2029/addressbook:latest
+    //       '''
+    //     }
+    //   }
+    // }
     stage('Terraform init and plan') {
-      agent none
+      agent docker {
+        image 'hashicorp/terraform:latest'
+        args '-u root'
+      }
       steps {
           sh '''
             cd ${WORKSPACE}/terraform
-            terraform init
-            terraform plan -out=tfplan
-          '''
+            pwd
+            ls
+            '''
+          //   terraform init
+          //   terraform plan -out=tfplan
+          // '''
         }
       }
     stage('Terraform apply') {
-      agent none
+      agent docker {
+        image 'hashicorp/terraform:latest'
+        args '-u root'
+      }
       steps {
           sh '''
             cd ${WORKSPACE}/terraform
