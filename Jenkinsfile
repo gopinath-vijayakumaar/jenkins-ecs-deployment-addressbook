@@ -55,10 +55,10 @@ pipeline {
     // }
     stage('Terraform init and plan') {
       agent {
-        docker {
-        image 'hashicorp/terraform:latest'
-        args '-u root'
-      }
+        docker{
+          image 'hashicorp/terraform:latest'
+          args '-u root'
+        }
       }
       steps {
           sh '''
