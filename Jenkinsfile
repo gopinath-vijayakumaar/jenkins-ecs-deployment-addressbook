@@ -66,12 +66,10 @@ pipeline {
     stage('Terraform apply') {
       agent none
       steps {
-        {
           sh '''
             cd ${WORKSPACE}/terraform
             terraform apply -auto-approve tfplan
           '''
-        }
       }
     }
   }
