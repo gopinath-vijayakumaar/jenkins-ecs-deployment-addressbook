@@ -15,8 +15,9 @@ resource "aws_ecs_task_definition" "addressbook" {
   container_definitions = jsonencode([
     {
       name  = "addressbook"
-      image = "gopinath2029/addressbook:latest"
-      cpu   = 0
+      image = "gopinath2029/addressbook:12"
+      cpu   = 1024
+      memory = 3072
       essential = true
 
       portMappings = [

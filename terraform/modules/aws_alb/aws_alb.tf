@@ -18,6 +18,6 @@ resource "aws_lb_listener" "lb_listener" {
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.addressbook.arn
+    target_group_arn = var.target_group_arn
   }
 }

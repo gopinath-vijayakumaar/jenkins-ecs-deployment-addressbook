@@ -23,10 +23,13 @@ module "aws_lb_target_group" {
 }
 
 module "aws_alb" {
-  source = "../modules/aws_alb"
+  source           = "../modules/aws_alb"
+  target_group_arn = module.aws_lb_target_group.target_group_arn
 }
 
 
 module "aws_ecs_service" {
-  source = "../modules/aws_ecs_cluster_service"
+  source           = "../modules/aws_ecs_cluster_service"
+  taskdef_arn      = module.aws_ecs_task_definition.taskdef_arn
+  target_group_arn = module.aws_lb_target_group.target_group_arn
 }
